@@ -10,14 +10,26 @@
 <body>
     <div id="app">
         <h1>Vuep Vuep</h1>
-        <ul>
-            <li v-for="item in list">{{ item }}</li>
-        </ul>
+        <h2>To-Do's</h2>
+        <div v-if="list.length > 0">
+            <ul>
+                <li v-for="item in list">
+                    <input type="checkbox" v-bind:checked="item.completed" v-on:click="boughtItem">{{ item.name }}
+                </li>
+            </ul>
+        </div>
+
         <form>
-            <input type="text" v-model="newItem" >
+            <input type="text" v-model="newItem" autofocus>
             <input type="submit" value="Add" v-bind:disabled="newItem.length === 0 ? true : false" v-on:click="addItem">
         </form>
         
+        <div v-if="completedItems.length > 0">
+            <h2>You Made Those</h2>
+            <ul>
+                <li v-for="item in completedItems">{{ item.nam }}}</li>
+            </ul>
+        </div>
     
     </div>
     <script>
@@ -25,14 +37,29 @@
         el: '#app',
         data: {
             newItem: '',
-            list: []
+            List: [],
         },
         methods: {
             addItem(evnt) {
                 evnt.preventDefault();
-                this.list.push(this.newItem);
+                this.list.push({
+                    name: this.newItem,
+                    completed: false
+                });
                 this.newItem = '';
+            },
+            boughtItem(item) {
+                item.completed = !item.completed;
             }
+
+        },
+        computed: {
+    //TO-DO: shopping list ekle ve onların fiyatlarını topla        
+        completedItems() {
+            return this.list.filter(item => {
+                return.item.completed;
+            })
+        }
         }
     });
     </script>
