@@ -15,10 +15,10 @@
         </ul>
         <form>
             <input type="text" v-model="newItem" >
-            <input type="submit" value="Add" v-on:click="addItem">
+            <input type="submit" value="Add" v-bind:disabled="newItem.length === 0 ? true : false" v-on:click="addItem">
         </form>
         
-        
+    
     </div>
     <script>
     new Vue({
